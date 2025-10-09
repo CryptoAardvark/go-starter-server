@@ -5,18 +5,17 @@ import (
 	"log"
 )
 
+type server struct{
+	addr string
+}
+
+func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Hello, from server!"))
+}
+
 func main(){
-	const port = "8080"
-	const filepathRoot = "."
-
-	mux := http.NewServeMux()
-	mux.Handle("/", http.FileServer(http.Dir(filepathRoot)))
-
-	srv := &http.Server{
-		Addr: ":" + port,
-		Handler: mux,
+	s := &server{addr: ":5000"}
+	if err := http.ListenAndServe(a.addr, s); err != nil {
+		log.Fatal(err)
 	}
-
-	log.Printf("serving on port :%s : %s", filepathRoot, port)
-	log.Fatal(srv.ListenAndServe())
 }
