@@ -15,7 +15,7 @@ func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func main(){
 	s := &server{addr: ":5000"}
-	if err := http.ListenAndServe(a.addr, s); err != nil {
+	if err := http.ListenAndServe(s.addr, s); err != nil {
 		log.Fatal(err)
 	}
 }
